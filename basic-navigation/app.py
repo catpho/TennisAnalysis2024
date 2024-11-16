@@ -1,7 +1,8 @@
 import seaborn as sns
-
+import pandas as pd
 # Import data from shared.py
 from shared import df
+
 
 from shiny.express import input, render, ui
 
@@ -9,12 +10,14 @@ ui.page_opts(title="Shiny navigation components")
 
 ui.nav_spacer()  # Push the navbar items to the right
 
+
 footer = ui.input_select(
-    "var", "Select variable", choices=["bill_length_mm", "body_mass_g"]
+    "var", "Select variable", choices=["Player Name", "Rally #"]
 )
+columns = [col for col in df.columns if col not in ["Player Name", "Rally #"]]
 
 with ui.nav_panel("Page 1"):
-    with ui.navset_card_underline(title="Penguins data", footer=footer):
+    with ui.navset_card_underline(title="Data", footer=footer):
         with ui.nav_panel("Plot"):
 
             @render.plot
@@ -28,7 +31,7 @@ with ui.nav_panel("Page 1"):
 
             @render.data_frame
             def data():
-                return df[["species", "island", input.var()]]
+                return df[columns]
 
 
 with ui.nav_panel("Page 2"):
