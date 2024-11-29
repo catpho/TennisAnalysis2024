@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from shared import df, session_summary_df, rally_df, match_df
 from alogorithm import conf_matrix, accuracy, mse, mae, r2, SVR_mae, SVR_mse, SVR_r2, RFR_mae ,RFR_mse,RFR_r2
 from shiny import App, ui, render, reactive
+from cluster import filtered_df
 
 # Helper function to get selected dataframe
 def get_dataframe(selected_df):
@@ -76,6 +77,13 @@ app_ui = ui.page_fluid(
                         )
                 )
             
+        ),
+        ui.nav_panel(
+            "Exploratory",
+            ui.h3(f"Decision Tree of Shot Statistics"),
+            ui.output_plot("decision_tree_plot")
+                
+            
         )
     )
 )
@@ -120,6 +128,25 @@ def server(input, output, session):
         plt.xlabel("Predicted")
         plt.ylabel("Actual")
         return plt.gca()
+    
+    @output
+    @render.plot 
+    def decision_tree_plot():
+        from sklearn.tree import DecisionTreeClassifier, plot_tree
+
+        x = filtered_df.drop(columns=['Cluster'])
+        y = filtered_df['Cluster']
+        tree = DecisionTreeClassifier(max_depth=3, random_state=42)
+        tree.fit(x,y)
+
+        plt.figure(figsize=(12,8))
+        plot_tree(tree, 
+                  feature_names=x.columns,
+                  class_names=[str(i) for i in y.unique()],
+                    filled=True)
+        plt.title("Decision Tree")
+        return plt.gca()
+
 
 # Create and run the app
 app = App(app_ui, server)
