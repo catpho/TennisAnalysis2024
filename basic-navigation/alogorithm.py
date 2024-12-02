@@ -8,6 +8,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.metrics import accuracy_score, confusion_matrix
+#####FIXME: file is hardcoded. make it possible for automated algorithms for any new similar file 
 
 encoder = OneHotEncoder(sparse_output=False)
 categorical_columns = ['Direction', 'Shot Type', 'Stroke']

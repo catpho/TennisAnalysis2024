@@ -59,12 +59,4 @@ filtered_df['Cluster'] = kmeans.labels_
 # Display the resulting DataFrame with clusters
 print(filtered_df.head())
 
-#decision trees
-x = filtered_df.drop(columns=['Cluster'])
-y = filtered_df['Cluster']
-tree = DecisionTreeClassifier(max_depth=3, random_state=42)
-tree.fit(x,y)
 
-plt.figure(figsize=(12,8))
-plot_tree(tree, feature_names=x.columns, class_names=[str(i) for i in y.unique()], filled=True)
-plt.show()

@@ -5,6 +5,7 @@ from shared import df, session_summary_df, rally_df, match_df
 from alogorithm import conf_matrix, accuracy, mse, mae, r2, SVR_mae, SVR_mse, SVR_r2, RFR_mae ,RFR_mse,RFR_r2
 from shiny import App, ui, render, reactive
 from cluster import filtered_df
+from playerContext import filtered_player_data, first_player_name
 
 # Helper function to get selected dataframe
 def get_dataframe(selected_df):
@@ -81,7 +82,8 @@ app_ui = ui.page_fluid(
         ui.nav_panel(
             "Exploratory",
             ui.h3(f"Decision Tree of Shot Statistics"),
-            ui.output_plot("decision_tree_plot")
+            ui.output_plot("decision_tree_plot"),
+            ui.output_plot("player_bar_chart")
                 
             
         )
@@ -145,6 +147,24 @@ def server(input, output, session):
                   class_names=[str(i) for i in y.unique()],
                     filled=True)
         plt.title("Decision Tree")
+        return plt.gca()
+    
+    @output
+    @render.plot
+    def player_bar_chart():
+        context_counts = filtered_player_data['Context'].value_counts()
+
+        # Plotting the data as a bar chart
+        plt.figure(figsize=(14, 8))
+        sns.barplot(x=context_counts.index, y=context_counts.values, palette='viridis')
+
+        # Adding plot labels and title
+        plt.xlabel('Context')
+        plt.ylabel('Count')
+        plt.title(f'Distribution of Contexts for {first_player_name}')
+        plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+        plt.grid(axis='y')
+
         return plt.gca()
 
 
