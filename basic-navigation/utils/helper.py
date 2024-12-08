@@ -12,5 +12,6 @@ def get_dataframe(selected_df):
         return rally_df
     elif selected_df == "Match Stats":
         return match_df
+        
     else:
         return pd.DataFrame()

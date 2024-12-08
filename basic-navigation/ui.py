@@ -3,6 +3,7 @@ from algorithm.confmatrix import accuracy, mse, mae, r2, SVR_mae, SVR_mse, SVR_r
 
 # Define UI
 app_ui = ui.page_fluid(
+    
     ui.navset_tab(
         # Page 1
         ui.nav_panel(
@@ -16,7 +17,8 @@ app_ui = ui.page_fluid(
                     ui.input_select(
                         "var", "Select Variable", 
                         choices=["Shot Type", "Stroke", "Context", "Outcome"]
-                    )
+                    ),
+                    ui.input_file("file1", "Choose CSV File", accept=[".csv"], multiple= False) 
                 ),
                 
                     ui.navset_tab(
@@ -60,11 +62,23 @@ app_ui = ui.page_fluid(
                 )
             
         ),
+        #page 3
         ui.nav_panel(
             "Exploratory",
             ui.h3(f"Decision Tree of Shot Statistics"),
-            ui.output_plot("decision_tree_plot"),
-            ui.output_plot("player_bar_chart")
+            ui.output_plot("decision_tree_plot")                
+            
+        ),
+        #page 4
+        ui.nav_panel(
+            "Player Statistics",
+            ui.output_plot("player_bar_chart"),
+            ui.output_plot("player_fault_pos"),
+            ui.output_plot("player_error_pos"),
+            ui.output_plot("player_shot_pos"),
+            ui.output_plot("player_outcome"),
+            ui.output_plot("single_shot_analysis")
+
                 
             
         )
