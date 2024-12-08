@@ -8,6 +8,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.metrics import accuracy_score, confusion_matrix
+
 #####FIXME: file is hardcoded. make it possible for automated algorithms for any new similar file 
 
 encoder = OneHotEncoder(sparse_output=False)
@@ -74,3 +75,9 @@ y_pred_rf = rf_model.predict(X_test)
 RFR_mse = mean_squared_error(y_test, y_pred_rf)
 RFR_mae = mean_absolute_error(y_test, y_pred_rf)
 RFR_r2 = r2_score(y_test, y_pred_rf)
+
+
+
+
+
+
