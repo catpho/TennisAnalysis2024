@@ -23,10 +23,6 @@ app_ui = ui.page_fluid(
                 
                     ui.navset_tab(
                         ui.nav_panel(
-                            "Plot",
-                            ui.output_plot("hist_plot")
-                        ),
-                        ui.nav_panel(
                             "Table",
                             ui.output_data_frame("data_table")
                         )

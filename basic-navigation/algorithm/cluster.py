@@ -46,7 +46,7 @@ plt.plot(k_range, inertia, 'bo-')
 plt.xlabel("Number of Clusters (k)")
 plt.ylabel("Inertia (Sum of Squared Distances)")
 plt.title("Elbow Method for Optimal k")
-#plt.show()
+plt.show()
 
 # Step 6: Run K-means with the chosen number of clusters (e.g., k=3 based on the Elbow Method)
 optimal_k = 4  # Adjust this based on the elbow plot

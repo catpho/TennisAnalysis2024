@@ -39,17 +39,6 @@ def server(input, output, session):
             except Exception as e:
                  print(f"Error saving data: {e}")
     
-    # Render histogram plot
-    @output
-    @render.plot
-    def hist_plot():
-        data = selected_dataframe()
-        var = input.var()
-        if var in data.columns:
-            plot = sns.histplot(data, x=var, color="#007bc2", edgecolor="white")
-            plot.set(xlabel=None)
-            return plot
-        return None
 
     # Render data table
     @output
